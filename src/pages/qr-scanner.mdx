@@ -1,0 +1,30 @@
+---
+title: QR Scanner
+hide_title: true
+wrapperClassName: standalone-page
+---
+import TreasureHunt from '@site/src/components/TreasureHunt';
+
+<style>
+{`
+.standalone-page .navbar {
+  display: none !important;
+}
+.standalone-page .footer {
+  display: none !important;
+}
+.standalone-page main {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+body.standalone-page {
+  background: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+`}
+</style>
+
+<TreasureHunt />
