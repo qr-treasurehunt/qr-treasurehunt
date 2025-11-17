@@ -15,17 +15,17 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://qr-treasurehunt.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'QR-treasurehunt', // Usually your GitHub org/user name.
+  projectName: 'QR-treasurehunt', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -44,7 +44,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/qr-treasurehunt/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         blog: false,
         theme: {
@@ -109,7 +109,7 @@ const config: Config = {
           items: [
             {
               label: 'QR Codes PDF',
-              to: '/pdf/qrcodes.pdf',
+              href: '/pdf/qrcodes.pdf',
             },
           ],
         },
