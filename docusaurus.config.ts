@@ -97,6 +97,8 @@ const config: Config = {
             {
               label: 'QR Codes PDF',
               href: '/pdf/qrcodes.pdf',
+              target: '_blank',
+              rel: 'noopener noreferrer',
             },
             {
               label: 'GitHub Repository',

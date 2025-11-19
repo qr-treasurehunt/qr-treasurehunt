@@ -12,7 +12,7 @@ Create interactive treasure hunts using QR codes and photos.
 
 - Smartphone/tablet with camera
 - Printer and scissors
-- [QR codes PDF](/pdf/qrcodes.pdf) (download and print)
+- <a href="/pdf/qrcodes.pdf" target="_blank" rel="noopener noreferrer">QR codes PDF</a> (download and print)
 - A treasure to hide!
 
 ---
@@ -20,7 +20,7 @@ Create interactive treasure hunts using QR codes and photos.
 ## 🎯 Creating Your Treasure Hunt
 
 ### 1. Prepare QR Codes
-- Download and print the [QR codes PDF](/pdf/qrcodes.pdf) or use your own QR codes.
+- Download and print the <a href="/pdf/qrcodes.pdf" target="_blank" rel="noopener noreferrer">QR codes PDF</a> or use your own QR codes.
 
 ### 2. Set Up Hunt Locations
 For each location:
