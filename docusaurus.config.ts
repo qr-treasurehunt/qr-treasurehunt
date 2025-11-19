@@ -56,7 +56,7 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/treasurehunter.png',
     colorMode: {
       respectPrefersColorScheme: true,
     },
@@ -64,23 +64,23 @@ const config: Config = {
       title: 'QR TreasureHunt',
       logo: {
         alt: 'QR TreasureHunt Logo',
-        src: 'img/logo.svg',
+        src: 'img/treasurehunter.png',
       },
       items: [
         {
           to: '/docs/treasurehunter/create-treasure-hunt',
           label: 'Create Hunt',
-          position: 'left',
+          position: 'right',
         },
         {
           to: '/qr-scanner',
           label: 'Scanner',
-          position: 'left',
+          position: 'right',
         },
         {
           to: '/docs/treasurehunter/instructions',
           label: 'Instructions',
-          position: 'left',
+          position: 'right',
         },
       ],
     },
@@ -88,28 +88,19 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Treasure Hunt',
+          title: 'Resources',
           items: [
-            {
-              label: 'Create Hunt',
-              to: '/docs/treasurehunter/create-treasure-hunt',
-            },
-            {
-              label: 'QR Scanner',
-              to: '/qr-scanner',
-            },
             {
               label: 'Instructions',
               to: '/docs/treasurehunter/instructions',
             },
-          ],
-        },
-        {
-          title: 'Resources',
-          items: [
             {
               label: 'QR Codes PDF',
               href: '/pdf/qrcodes.pdf',
+            },
+            {
+              label: 'GitHub Repository',
+              href: 'https://github.com/QR-treasurehunt/QR-treasurehunt',
             },
           ],
         },

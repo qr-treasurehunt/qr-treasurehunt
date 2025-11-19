@@ -9,27 +9,14 @@ import Heading from '@theme/Heading';
 import styles from './index.module.css';
 
 function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/treasurehunter/create-treasure-hunt">
-            Create Treasure Hunt 🏗️
-          </Link>
-          <Link
-            className="button button--primary button--lg"
-            to="/qr-scanner"
-            style={{marginLeft: '1rem'}}>
-            Perform Treasure Hunt 🔍
-          </Link>
-        </div>
+        <img 
+          src="/img/treasurehunter.png" 
+          alt="Treasure Hunt" 
+          style={{maxWidth: '200px', height: 'auto'}}
+        />
       </div>
     </header>
   );
@@ -43,6 +30,22 @@ export default function Home(): ReactNode {
       description="Description will go into a meta tag in <head />">
       <HomepageHeader />
       <main>
+        <div className="container" style={{padding: '2rem 0', textAlign: 'center'}}>
+          <div className={styles.buttons} style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem'}}>
+            <Link
+              className="button button--lg"
+              to="/docs/treasurehunter/create-treasure-hunt"
+              style={{backgroundColor: 'steelblue', color: 'white', border: 'none'}}>
+              Create Treasure Hunt 🏗️
+            </Link>
+            <Link
+              className="button button--lg"
+              to="/qr-scanner"
+              style={{backgroundColor: 'steelblue', color: 'white', border: 'none'}}>
+              Perform Treasure Hunt 🔍
+            </Link>
+          </div>
+        </div>
         <HomepageFeatures />
       </main>
     </Layout>

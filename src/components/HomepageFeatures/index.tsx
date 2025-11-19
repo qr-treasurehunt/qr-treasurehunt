@@ -10,36 +10,6 @@ type FeatureItem = {
 };
 
 const FeatureList: FeatureItem[] = [
-  {
-    title: '🏗️ Create Treasure Hunts',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
-    description: (
-      <>
-        Easily create your own QR code treasure hunts by associating QR code numbers 
-        with location photos. Build exciting trails for friends and family to follow!
-      </>
-    ),
-  },
-  {
-    title: '🔍 Scan QR Codes',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
-    description: (
-      <>
-        Use your device's camera to scan QR codes and reveal location photos that 
-        guide you to the next step in your treasure hunting adventure.
-      </>
-    ),
-  },
-  {
-    title: '📱 Browser-Based',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
-    description: (
-      <>
-        No app downloads required! Everything works directly in your web browser 
-        with local storage to keep your treasure hunts private and secure.
-      </>
-    ),
-  },
 ];
 
 function Feature({title, Svg, description}: FeatureItem) {

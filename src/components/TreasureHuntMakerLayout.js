@@ -27,14 +27,12 @@ const TreasureHuntMakerLayout = ({
   return (
     <div style={{ 
       maxWidth: 500, 
-      margin: '40px auto', 
       padding: 24, 
       background: 'var(--ifm-background-color)', 
       color: 'var(--ifm-font-color-base)', 
       borderRadius: 12, 
       boxShadow: '0 2px 16px rgba(0,0,0,0.08)' 
     }}>
-      <h1 style={{ textAlign: 'center' }}>Scan QR Code and Take Snapshot</h1>
       <p>{message}</p>
 
       <QRCodeScannerSection 
