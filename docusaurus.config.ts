@@ -69,12 +69,12 @@ const config: Config = {
       items: [
         {
           to: '/docs/treasurehunter/create-treasure-hunt',
-          label: 'Create Hunt',
+          label: 'Create Treasure Hunt',
           position: 'right',
         },
         {
           to: '/qr-scanner',
-          label: 'Scanner',
+          label: 'Perform Treasure Hunt',
           position: 'right',
         },
         {

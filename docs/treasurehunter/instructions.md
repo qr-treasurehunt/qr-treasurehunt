@@ -40,7 +40,7 @@ For each location:
 
 ---
 
-## 🏃‍♂️ Running Your Treasure Hunt
+## 🏃‍♂️ Performing Your Treasure Hunt
 
 1. **Open the standalone [QR scanner page](/qr-scanner)** on the same device used to create the hunt
 2. **Choose hunt mode**: Sequential (your order) or Random (shuffled)
@@ -57,8 +57,9 @@ For each location:
 - Take photos from the hunter's perspective
 
 **During the hunt:**
-- Scan QR codes in the correct order - the app will guide you if you scan the wrong one
-- If you accidentally find a future QR code, don't worry! The app will tell you to keep looking for the current location
+- Scan QR codes in the correct order if you do a sequential hunt - the app will guide you if you scan the wrong one. 
+- If you accidentally find a future QR code in sequential mode, don't worry! The app will tell you to keep looking for the current location
+- If you do a random order hunt, it is ok if the player finds a QR code by accident.
 
 **Technical notes:**
 - All data stored locally in your browser
@@ -68,7 +69,7 @@ For each location:
 **Troubleshooting:**
 - QR won't scan? Check lighting and hold camera steady
 - Photos not showing? Use same browser/device
-- Wrong order? Use reorder arrows in database
+- Wrong order? Use reorder arrows in database (note: final treasure location stays last)
 
 ---
 

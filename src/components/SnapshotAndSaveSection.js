@@ -98,7 +98,7 @@ const SnapshotAndSaveSection = ({
           }}
           title={!image ? 'Take a snapshot first' : 'Save as final treasure location (no QR code needed)'}
         >
-          Save as Final Treasure (#{nextQRNumber})
+          Save as Final Treasure
         </button>
         
         <div style={{ marginTop: 10, fontSize: '0.8em', color: 'var(--ifm-color-emphasis-600)' }}>

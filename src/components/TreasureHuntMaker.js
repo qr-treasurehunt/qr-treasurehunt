@@ -41,16 +41,20 @@ const TreasureHuntMaker = () => {
       setMessage("Please take a snapshot of the treasure location first!");
       return;
     }
-
-    const finalQRNumber = calculateNextQRNumber();
     
     try {
-      // Save the final treasure image with the next QR number
+      // Get the current max order_index
+      const orderStmt = db.prepare('SELECT COALESCE(MAX(order_index), -1) as max_order FROM steg');
+      orderStmt.step();
+      const maxOrder = orderStmt.getAsObject().max_order;
+      orderStmt.free();
+      
+      // Save the final treasure image with NULL qrkode and order_index
       db.run(
-        `INSERT INTO steg (qrkode, bilde_base64) VALUES (?, ?)`,
-        [finalQRNumber.toString(), image]
+        `INSERT INTO steg (qrkode, bilde_base64, order_index) VALUES (?, ?, ?)`,
+        [null, image, maxOrder + 1]
       );
-      setMessage(`Final treasure location saved as entry ${finalQRNumber}! This is where the treasure is hidden (no QR code needed).`);
+      setMessage(`Final treasure location saved! This is where the treasure is hidden (no QR code needed).`);
 
       // Save the database to localStorage
       saveDatabaseToLocalStorage(db);
@@ -89,13 +93,41 @@ const TreasureHuntMaker = () => {
         const binaryArray = new Uint8Array(atob(savedDb).split('').map(char => char.charCodeAt(0)));
         newDb = new SQL.Database(binaryArray);
         console.log('Database loaded from localStorage');
+        
+        // Check if order_index column exists, if not add it
+        try {
+          newDb.run('ALTER TABLE steg ADD COLUMN order_index INTEGER');
+          console.log('Added order_index column to existing table');
+          
+          // Initialize order_index for existing records
+          const checkStmt = newDb.prepare('SELECT qrkode FROM steg ORDER BY CAST(qrkode AS INTEGER)');
+          const qrcodes = [];
+          while (checkStmt.step()) {
+            qrcodes.push(checkStmt.getAsObject().qrkode);
+          }
+          checkStmt.free();
+          
+          qrcodes.forEach((qrkode, index) => {
+            const updateStmt = newDb.prepare('UPDATE steg SET order_index = ? WHERE qrkode = ?');
+            updateStmt.bind([index, qrkode]);
+            updateStmt.step();
+            updateStmt.free();
+          });
+          
+          // Save the updated database
+          saveDatabaseToLocalStorage(newDb);
+        } catch (e) {
+          // Column likely already exists
+          console.log('order_index column handling:', e.message);
+        }
       } else {
         // Otherwise, create a new in-memory database
         newDb = new SQL.Database();
         newDb.run(`
           CREATE TABLE IF NOT EXISTS steg (
             qrkode TEXT PRIMARY KEY,
-            bilde_base64 TEXT
+            bilde_base64 TEXT,
+            order_index INTEGER
           );
         `);
       }
@@ -134,11 +166,24 @@ const TreasureHuntMaker = () => {
       );
       setMessage(`QR-kode ${qrCode} oppdatert med nytt bilde!`);
     } else {
-      // Insert the QR code and image into the database
+      // Get the current max order_index from hunt locations (excluding final treasure)
+      const orderStmt = db.prepare('SELECT COALESCE(MAX(order_index), -1) as max_order FROM steg WHERE qrkode IS NOT NULL');
+      orderStmt.step();
+      const maxOrder = orderStmt.getAsObject().max_order;
+      orderStmt.free();
+      
+      // Insert the QR code and image into the database with order_index
+      // This will place it after all hunt locations but before the final treasure
       db.run(
-        `INSERT INTO steg (qrkode, bilde_base64) VALUES (?, ?)`,
-        [qrCode, image]
+        `INSERT INTO steg (qrkode, bilde_base64, order_index) VALUES (?, ?, ?)`,
+        [qrCode, image, maxOrder + 1]
       );
+      
+      // Update the final treasure's order_index to be after this new item
+      const finalTreasureStmt = db.prepare('UPDATE steg SET order_index = order_index + 1 WHERE qrkode IS NULL');
+      finalTreasureStmt.step();
+      finalTreasureStmt.free();
+      
       setMessage(`QR-kode ${qrCode} og bilde lagret!`);
     }
 

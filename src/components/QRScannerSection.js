@@ -47,13 +47,13 @@ const QRScannerSection = ({
             }}>
               {isErrorMessage ? '⚠️' : '✅'} {lastScannedCode.replace(/^Wrong sequence: |^Already used: |^Already scanned: |^Not part of this hunt: /, '')}
             </span>
-            {isErrorMessage && onDismissMessage && (
+            {onDismissMessage && (
               <button
                 onClick={onDismissMessage}
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: '#d32f2f',
+                  color: isErrorMessage ? '#d32f2f' : '#2e7d32',
                   fontSize: '18px',
                   cursor: 'pointer',
                   padding: '4px 8px',

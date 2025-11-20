@@ -53,6 +53,21 @@ const TreasureHunt = ({ showScannedCode = false }) => {
 
   // Start the game with selected mode
   const startGame = () => {
+    // Check if there's a final treasure (NULL qrkode)
+    const hasFinalTreasure = treasureSequence.some(qr => qr === null);
+    
+    if (!hasFinalTreasure) {
+      alert('Cannot start hunt: No final treasure location found! Please add a final treasure location first.');
+      return;
+    }
+    
+    // Check if there are any hunt locations (non-NULL qrkodes)
+    const huntLocations = treasureSequence.filter(qr => qr !== null);
+    if (huntLocations.length === 0) {
+      alert('Cannot start hunt: No hunt locations found! Please add at least one hunt location with a QR code.');
+      return;
+    }
+    
     const setters = {
       setGameStarted,
       setCurrentStep,
@@ -102,6 +117,7 @@ const TreasureHunt = ({ showScannedCode = false }) => {
           setHuntMode={setHuntMode}
           onStartGame={startGame}
           treasureCount={treasureSequence.length}
+          treasureSequence={treasureSequence}
         />
       )}
       

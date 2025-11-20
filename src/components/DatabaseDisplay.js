@@ -37,7 +37,7 @@ const DatabaseDisplay = ({
     await loadSqlJsScript("/sql/sql-wasm.js");
     const SQL = await window.initSqlJs(config);
     const newDb = new SQL.Database();
-    newDb.run(`CREATE TABLE IF NOT EXISTS steg (qrkode TEXT PRIMARY KEY, bilde_base64 TEXT);`);
+    newDb.run(`CREATE TABLE IF NOT EXISTS steg (qrkode TEXT PRIMARY KEY, bilde_base64 TEXT, order_index INTEGER);`);
     setDb(newDb);
     setDatabaseContent([]);
     setQrCode("");
@@ -89,7 +89,12 @@ const DatabaseDisplay = ({
               <td colSpan="4">The database is empty</td>
             </tr>
           ) : (
-            databaseContent.map(([qrkode, bilde_base64], index) => (
+            databaseContent.map(([qrkode, bilde_base64], index) => {
+              const isFinalTreasure = qrkode === null;
+              const canMoveUp = index > 0 && !isFinalTreasure;
+              const canMoveDown = index < databaseContent.length - 1 && !isFinalTreasure && databaseContent[index + 1][0] !== null;
+              
+              return (
               <tr key={index}>
                 <td style={{ textAlign: 'center' }}>
                   <button
@@ -110,7 +115,7 @@ const DatabaseDisplay = ({
                     Delete
                   </button>
                 </td>
-                <td>{qrkode}</td>
+                <td>{qrkode === null ? '(Final Treasure)' : qrkode}</td>
                 <td>
                   <img src={bilde_base64} alt={`Bilde ${qrkode}`} width="50" />
                 </td>
@@ -118,16 +123,17 @@ const DatabaseDisplay = ({
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
                     <button
                       onClick={() => handleMoveUp(index)}
-                      disabled={index === 0}
+                      disabled={!canMoveUp}
+                      title={isFinalTreasure ? 'Cannot reorder final treasure' : canMoveUp ? 'Move up' : 'Already at top'}
                       style={{
                         padding: '4px 8px',
                         borderRadius: 4,
                         border: 'none',
-                        background: index === 0 ? '#bdc3c7' : '#3498db',
+                        background: canMoveUp ? '#3498db' : '#bdc3c7',
                         color: '#fff',
                         fontWeight: 600,
                         fontSize: '0.75rem',
-                        cursor: index === 0 ? 'not-allowed' : 'pointer',
+                        cursor: canMoveUp ? 'pointer' : 'not-allowed',
                         minWidth: '28px',
                         height: '24px',
                         display: 'flex',
@@ -141,16 +147,17 @@ const DatabaseDisplay = ({
                     </button>
                     <button
                       onClick={() => handleMoveDown(index)}
-                      disabled={index === databaseContent.length - 1}
+                      disabled={!canMoveDown}
+                      title={isFinalTreasure ? 'Cannot reorder final treasure' : canMoveDown ? 'Move down' : 'Already at bottom'}
                       style={{
                         padding: '4px 8px',
                         borderRadius: 4,
                         border: 'none',
-                        background: index === databaseContent.length - 1 ? '#bdc3c7' : '#2ecc71',
+                        background: canMoveDown ? '#2ecc71' : '#bdc3c7',
                         color: '#fff',
                         fontWeight: 600,
                         fontSize: '0.75rem',
-                        cursor: index === databaseContent.length - 1 ? 'not-allowed' : 'pointer',
+                        cursor: canMoveDown ? 'pointer' : 'not-allowed',
                         minWidth: '28px',
                         height: '24px',
                         display: 'flex',
@@ -165,7 +172,8 @@ const DatabaseDisplay = ({
                   </div>
                 </td>
               </tr>
-            ))
+            );
+          })
           )}
         </tbody>
       </table>
