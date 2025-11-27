@@ -24,9 +24,17 @@ const TreasureHunt = ({ showScannedCode = false }) => {
   const [huntMode, setHuntMode] = useState('sequential'); // 'sequential' or 'random'
   const [gameStarted, setGameStarted] = useState(false);
   const [shuffledSequence, setShuffledSequence] = useState([]); // For random mode
+  const [previouslyScannedQR, setPreviouslyScannedQR] = useState(null); // Track the last individual scan
 
 
   const handleQRCodeScanned = (code) => {
+    // Ignore duplicate scans of the same code in a row
+    if (code === previouslyScannedQR) {
+      return;
+    }
+    
+    setPreviouslyScannedQR(code);
+    
     const setters = {
       setLastScannedCode,
       setScannedCodes,
@@ -67,6 +75,9 @@ const TreasureHunt = ({ showScannedCode = false }) => {
       alert('Cannot start hunt: No hunt locations found! Please add at least one hunt location with a QR code.');
       return;
     }
+    
+    // Reset the previously scanned QR tracker when starting a new game
+    setPreviouslyScannedQR(null);
     
     const setters = {
       setGameStarted,
